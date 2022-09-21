@@ -1,5 +1,7 @@
 The base code for this is the Binary Upload Boom social network from 100Devs: https://github.com/100devs/binary-upload-boom
 
+ABBO TUTOR ASSISTANT: an app that allows tutors to schedue lessons and students to choose a time or swap it with other students.
+
 # Install
 
 `npm install`
