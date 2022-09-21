@@ -1,3 +1,5 @@
+The base code for this is the Binary Upload Boom social network from 100Devs: https://github.com/100devs/binary-upload-boom
+
 # Install
 
 `npm install`
