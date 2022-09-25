@@ -3,8 +3,14 @@ const mongoose = require("mongoose");
 
 const UserSchema = new mongoose.Schema({
   userName: { type: String, unique: true },
+  name: String,
+  lastName: String,
+  role: String,
   email: { type: String, unique: true },
   password: String,
+  calendarCode: String,
+  enrolledStudents: Array,
+  myTutors: Array,
 });
 
 // Password hash middleware.

@@ -1,6 +1,7 @@
 const passport = require("passport");
 const validator = require("validator");
 const User = require("../models/User");
+const randomize = require('randomatic');
 
 exports.getLogin = (req, res) => {
   if (req.user) {
@@ -86,8 +87,14 @@ exports.postSignup = (req, res, next) => {
 
   const user = new User({
     userName: req.body.userName,
+    name: req.body.name,
+    lastName: req.body.lastName,
+    role: req.body.role,
     email: req.body.email,
     password: req.body.password,
+    calendarCode: randomize('A0', 6, { exclude: '0oOiIlL1' }),
+    enrolledStudents: [],
+    myTutors: [],
   });
 
   User.findOne(
