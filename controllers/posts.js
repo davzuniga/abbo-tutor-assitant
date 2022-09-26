@@ -5,7 +5,8 @@ module.exports = {
   getProfile: async (req, res) => {
     try {
       const posts = await Post.find({ user: req.user.id });
-      res.render("profile.ejs", { posts: posts, user: req.user });
+      req.user.role === 'tutor' ? res.render("tutorProfile.ejs", { posts: posts, user: req.user }) : res.render("studentProfile.ejs", { posts: posts, user: req.user });
+      // res.render("profile.ejs", { posts: posts, user: req.user })
     } catch (err) {
       console.log(err);
     }
@@ -29,15 +30,22 @@ module.exports = {
   createPost: async (req, res) => {
     try {
       // Upload image to cloudinary
-      const result = await cloudinary.uploader.upload(req.file.path);
+      // const result = await cloudinary.uploader.upload(req.file.path);
 
       await Post.create({
         title: req.body.title,
-        image: result.secure_url,
-        cloudinaryId: result.public_id,
-        caption: req.body.caption,
+        dayOfTheWeek: req.body.dayOfTheWeek,
+        time: `${req.body.hour}:${req.body.minutes} ${req.body.amPm}`,
+        recurrent: req.body.recurrent,
+        available: true,
+        claimed: false,
+        claimedBy: '',
+        requested: false,
+        requestedBy: '',
         likes: 0,
         user: req.user.id,
+                // image: result.secure_url,
+                // cloudinaryId: result.public_id,
       });
       console.log("Post has been added!");
       res.redirect("/profile");

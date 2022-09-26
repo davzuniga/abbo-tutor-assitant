@@ -95,6 +95,7 @@ exports.postSignup = (req, res, next) => {
     calendarCode: randomize('A0', 6, { exclude: '0oOiIlL1' }),
     enrolledStudents: [],
     myTutors: [],
+    availablePicks: 1,
   });
 
   User.findOne(

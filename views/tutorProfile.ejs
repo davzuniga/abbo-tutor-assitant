@@ -1,0 +1,156 @@
+<%- include('partials/header') -%>
+<!-- <div class="container">
+  <div class="row mt-5">
+      <div class="col-6">
+          <div>
+              <p><strong>User Name</strong>: <%= user.userName %></p>
+              <p><strong>Email</strong>: <%= user.email %></p>
+              <a href="/logout" class="col-3 btn btn-primary">Logout</a>
+          </div>
+          <div class="mt-5">
+            <h2>Add a post</h2>
+            <form action="/post/createPost" enctype="multipart/form-data" method="POST">
+              <div class="mb-3">
+                  <label for="title" class="form-label">Title</label>
+                  <input type="text" class="form-control" id="title" name="title">
+              </div>
+              <div class="mb-3">
+                <label for="caption" class="form-label">Caption</label>
+                <textarea class="form-control" id="caption" name="caption"></textarea>
+              </div>
+              <div class="mb-3">
+                <label for="imgUpload" class="form-label">Image</label>
+                <input type="file" class="form-control" id="imageUpload" name="file">
+              </div>
+              <button type="submit" class="btn btn-primary" value="Upload">Submit</button>
+            </form>
+          </div>
+      </div>
+      <div class="col-6">
+        <ul class="row list-unstyled">
+        <% for(var i=0; i<posts.length; i++) {%>
+          <li class="col-6 justify-content-between mt-5">
+            <a href="/post/<%= posts[i]._id%>">
+              <img class="img-fluid" src="<%= posts[i].image%>">
+            </a>
+          </li>
+        <% } %>
+        </ul>
+        <div class="row justify-content-center mt-5">
+          <a class="btn btn-primary" href="/feed">Return to Feed</a>
+        </div>  
+      </div>  
+    </div>
+  </div>
+</div> -->
+
+
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-6">
+            <div>
+                <h2>Welcome, <%= user.name %>!</h2>
+                <p><strong>Your Calendar Code: <%= user.calendarCode %></strong></p>
+                <p><strong>Email</strong>: <%= user.email %></p>
+                <a href="/logout" class="col-3 btn btn-primary">Logout</a>
+            </div>
+            <div class="mt-5">
+              <h2>Add a Tutoring Slot</h2>
+              <form action="/post/createPost" enctype="multipart/form-data" method="POST">
+                <div class="mb-3">
+                    <label for="title" class="form-label">Title (Optional)</label>
+                    <input type="text" class="form-control" id="title" name="title">
+                    <div id="titleHelp" class="form-text">You can specify a type of lesson, a restriction, or anything else.</div>
+                </div>
+                <div class="mb-3">
+                    <label for="dayOfTheWeek" class="form-label">Choose the day of the week</label>
+                    <select class="form-select" aria-label="dayOfTheWeek" name="dayOfTheWeek">
+                      <option value="monday">Monday</option>
+                      <option value="tuesday">Tuesday</option>
+                      <option value="wednesday">Wednesday</option>
+                      <option value="thursday">Thursday</option>
+                      <option value="friday">Friday</option>
+                      <option value="saturday">Saturday</option>
+                      <option value="sunday">Sunday</option>
+                    </select>
+                </div>
+                <div class="mb-3 col-sm-2">
+                    <label for="hour" class="form-label col-sm-2">Hour</label>
+                    <select class="form-select" aria-label="hour" name="hour">
+                      <option value="01">1</option>
+                      <option value="02">2</option>
+                      <option value="03">3</option>
+                      <option value="04">4</option>
+                      <option value="05">5</option>
+                      <option value="06">6</option>
+                      <option value="07">7</option>
+                      <option value="08">8</option>
+                      <option value="09">9</option>
+                      <option value="10">10</option>
+                      <option value="11">11</option>
+                      <option value="12">12</option>
+                    </select>
+                </div>
+                <div class="mb-3 col-sm-2">
+                    <label for="minutes" class="form-label col-sm-2">Minutes</label>
+                    <select class="form-select" aria-label="minutes" name="minutes">
+                      <option value="00">00</option>
+                      <option value="05">05</option>
+                      <option value="10">10</option>
+                      <option value="15">15</option>
+                      <option value="20">20</option>
+                      <option value="25">25</option>
+                      <option value="30">30</option>
+                      <option value="35">35</option>
+                      <option value="40">40</option>
+                      <option value="45">45</option>
+                      <option value="50">50</option>
+                      <option value="55">55</option>
+                    </select>
+                </div>
+                <div class="mb-3 col-sm-2">
+                    <label for="amPm" class="form-label col-sm-2">AM/PM</label>
+                    <select class="form-select" aria-label="amPm" name="amPm">
+                      <option value="pm">PM</option>
+                      <option value="am">AM</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="recurrent" class="form-label">Is this schedule repeating every week?</label>
+                    <select class="form-select" aria-label="recurrent" name="recurrent">
+                      <option value="true">Yes</option>
+                      <option value="false">No</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary" value="Upload">Submit</button>
+              </form>
+            </div>
+        </div>
+        <div class="col-6">
+            <ul class="row list-unstyled">
+            <% posts.forEach(post => {%>
+              <li class="col-12 justify-content-between mt-5">
+                <div class="card">
+                    <div class="card-header">
+                        <%= post.dayOfTheWeek[0].toUpperCase() + post.dayOfTheWeek.slice(1).toLowerCase() %>
+                    </div>
+                    <div class="card-body">
+                      <h5 class="card-title"><%= post.time %></h5>
+                      <p class="card-text"><%= post.title %></p>
+                      <a href="#" class="btn btn-primary">Assign to Student</a>
+                    </div>
+                  </div>
+              </li>
+            <% }) %>
+            </ul>
+            <div class="row justify-content-center mt-5">
+              <a class="btn btn-primary" href="/feed">Return to Feed</a>
+            </div>  
+          </div>   
+      </div>
+    </div>
+  </div>
+
+
+
+<%- include('partials/footer') -%>

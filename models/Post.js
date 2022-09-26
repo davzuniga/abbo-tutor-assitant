@@ -1,22 +1,15 @@
 const mongoose = require("mongoose");
 
 const PostSchema = new mongoose.Schema({
-  title: {
-    type: String,
-    required: true,
-  },
-  image: {
-    type: String,
-    require: true,
-  },
-  cloudinaryId: {
-    type: String,
-    require: true,
-  },
-  caption: {
-    type: String,
-    required: true,
-  },
+  title: String,
+  dayOfTheWeek: { type: String, required: true },
+  time: { type: String, required: true },
+  recurrent: { type: Boolean, required: true },
+  available: Boolean,
+  claimed: Boolean,
+  claimedBy: String,
+  requested: Boolean,
+  requestedBy: String,
   likes: {
     type: Number,
     required: true,
@@ -29,6 +22,12 @@ const PostSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  // image: {
+  //   type: String,
+  // },
+  // cloudinaryId: {
+  //   type: String,
+  // },
 });
 
 module.exports = mongoose.model("Post", PostSchema);

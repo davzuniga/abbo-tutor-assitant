@@ -11,6 +11,7 @@ const UserSchema = new mongoose.Schema({
   calendarCode: String,
   enrolledStudents: Array,
   myTutors: Array,
+  availablePicks: Number,
 });
 
 // Password hash middleware.
