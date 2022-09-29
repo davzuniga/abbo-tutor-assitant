@@ -10,6 +10,7 @@ const PostSchema = new mongoose.Schema({
   claimedBy: String,
   requested: Boolean,
   requestedBy: String,
+  requestedById: String,
   likes: {
     type: Number,
     required: true,
