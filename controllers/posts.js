@@ -1,12 +1,15 @@
 const cloudinary = require("../middleware/cloudinary");
 const Post = require("../models/Post");
 const Request = require("../models/Request");
+const User = require("../models/User");
 
 module.exports = {
   getProfile: async (req, res) => {
     try {
       const posts = await Post.find({ user: req.user.id });
-      req.user.role === 'tutor' ? res.render("tutorProfile.ejs", { posts: posts, user: req.user }) : res.render("studentProfile.ejs", { posts: posts, user: req.user });
+      const requests = await Request.find({post: req.params.id}).sort({ createdAt: "asc" }).lean();
+      const claimedSlots = await Post.find({claimedById: req.user.id}).sort({ createdAt: "asc" }).lean();
+      req.user.role === 'tutor' ? res.render("tutorProfile.ejs", { posts: posts, user: req.user, requests: requests }) : res.render("studentProfile.ejs", { posts: posts, user: req.user, requests: requests, claimedSlots: claimedSlots, });
       // res.render("profile.ejs", { posts: posts, user: req.user })
     } catch (err) {
       console.log(err);
@@ -42,10 +45,12 @@ module.exports = {
         available: true,
         claimed: false,
         claimedBy: '',
+        claimedById: '',
         requested: false,
         requestedBy: '',
         requestedById: '',
         likes: 0,
+        tutorName: `${req.user.name} ${req.user.lastName}`,
         user: req.user.id,
                 // image: result.secure_url,
                 // cloudinaryId: result.public_id,

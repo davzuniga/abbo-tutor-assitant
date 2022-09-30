@@ -47,7 +47,7 @@
 
 <div class="container">
     <div class="row mt-5">
-        <div class="col-6">
+        <div class="col-5">
             <div>
                 <h2>Welcome, <%= user.name %>!</h2>
                 <p><strong>Your Calendar Code: <%= user.calendarCode %></strong></p>
@@ -137,7 +137,19 @@
                     <div class="card-body">
                       <h5 class="card-title"><%= post.time %></h5>
                       <p class="card-text"><%= post.title %></p>
-                      <a href="#" class="btn btn-primary">Assign to Student</a>
+                      <% if(post.claimed && post.requested){ %>
+                        <p class="card-text">Swap Requested</p>
+                        <a href="#" class="btn btn-primary">Review Swap Request</a>
+                      <% }else if(post.claimed){ %>
+                        <p class="card-text">Assigned to : <%= post.claimedBy %></p>
+                        <a href="#" class="btn btn-primary">Unassign from Student</a>
+                      <% }else if(post.requested){ %>
+                        <p class="card-text">Requested by : <%= post.requestedBy %></p>
+                        <a href="#" class="btn btn-primary">Review Request</a>
+                      <% }else if(post.available){ %>
+                        <p class="card-text">Available %></p>
+                        <a href="#" class="btn btn-primary">Assign to Student</a>
+                      <% } %>
                     </div>
                   </div>
               </li>

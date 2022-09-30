@@ -8,6 +8,7 @@ const PostSchema = new mongoose.Schema({
   available: Boolean,
   claimed: Boolean,
   claimedBy: String,
+  claimedById: String,
   requested: Boolean,
   requestedBy: String,
   requestedById: String,
@@ -15,6 +16,7 @@ const PostSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  tutorName: String,
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",

@@ -1,1 +1,51 @@
-STUDENT PROFILE
+<%- include('partials/header') -%>
+
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-6">
+            <div>
+                <h2>Welcome, <%= user.name %>!</h2>
+                <p><strong>Email</strong>: <%= user.email %></p>
+                <a href="/logout" class="col-3 btn btn-primary">Logout</a>
+            </div>
+            <div class="mt-5">
+                <h2>Find a Calendar</h2>
+                <form action="/post/createPost" enctype="multipart/form-data" method="POST">
+                  <div class="mb-3">
+                      <label for="title" class="form-label">Calendar Code</label>
+                      <input type="text" class="form-control" id="title" name="title">
+                      <div id="titleHelp" class="form-text">Your Tutor must provide you with a Calendar Code to view his available times.</div>
+                  </div>
+                  <button type="submit" class="btn btn-primary" value="Upload">Submit</button>
+                </form>
+              </div>
+        </div>
+        <div class="col-6">
+            <h2>Your Schedule</h2>
+            <ul class="row list-unstyled">
+            <% claimedSlots.forEach(slot => {%>
+              <li class="col-12 justify-content-between mt-5">
+                <div class="card">
+                    <div class="card-header">
+                        <%= slot.dayOfTheWeek[0].toUpperCase() + slot.dayOfTheWeek.slice(1).toLowerCase() %>
+                    </div>
+                    <div class="card-body">
+                      <h5 class="card-title"><%= slot.time %></h5>
+                      <p class="card-text"><%= slot.title %></p>
+                      <p class="card-text"><strong>Your Tutor: </strong><%= slot.tutorName %></p>
+                    </div>
+                  </div>
+              </li>
+            <% }) %>
+            </ul>
+            <div class="row justify-content-center mt-5">
+              <a class="btn btn-primary" href="/feed">Return to Feed</a>
+            </div>  
+          </div>   
+      </div>
+    </div>
+  </div>
+
+
+
+<%- include('partials/footer') -%>
