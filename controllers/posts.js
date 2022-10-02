@@ -17,8 +17,8 @@ module.exports = {
   },
   getTutorCalendar: async (req, res) => {
     try {
-      const tutor = await User.find( { calendarCode: req.query.calendarCode });
-      console.log(tutor.lastName)
+      const tutor = await User.find( { calendarCode: req.query.calendarCode }).lean();
+      console.log(tutor)
       const posts = await Post.find({ calendar: req.query.calendarCode });
       const requests = await Request.find({post: req.params.id}).sort({ createdAt: "asc" }).lean();
       const claimedSlots = await Post.find({claimedById: req.user.id}).sort({ createdAt: "asc" }).lean();

@@ -139,25 +139,22 @@
                       <p class="card-text"><%= post.title %></p>
                       <% if(post.claimed && post.requested){ %>
                         <p class="card-text">Swap Requested</p>
-                        <a href="#" class="btn btn-primary">Review Swap Request</a>
+                        <a href="/requests/reviewSwap/<%= post._id%>" class="btn btn-primary">Review Swap Request</a>
                       <% }else if(post.claimed){ %>
                         <p class="card-text">Assigned to : <%= post.claimedBy %></p>
-                        <a href="#" class="btn btn-primary">Unassign from Student</a>
+                        <a href="/requests/unassignSlot/<%= post._id%>" class="btn btn-primary">Unassign from Student</a>
                       <% }else if(post.requested){ %>
                         <p class="card-text">Requested by : <%= post.requestedBy %></p>
-                        <a href="#" class="btn btn-primary">Review Request</a>
+                        <a href="/requests/reviewRequest/<%= post._id%>" class="btn btn-primary">Review Request</a>
                       <% }else if(post.available){ %>
                         <p class="card-text">Available %></p>
-                        <a href="#" class="btn btn-primary">Assign to Student</a>
+                        <a href="/requests/assignSlot/<%= post._id%>" class="btn btn-primary">Assign to Student</a>
                       <% } %>
                     </div>
                   </div>
               </li>
             <% }) %>
             </ul>
-            <div class="row justify-content-center mt-5">
-              <a class="btn btn-primary" href="/feed">Return to Feed</a>
-            </div>  
           </div>   
       </div>
     </div>

@@ -21,7 +21,7 @@
               </div>
         </div>
         <div class="col-6">
-            <p><h4>Tutor name:  <%= tutor.lastName %> </h4></p>
+            <p><h4>Tutor name: <%= tutor[0]['name'] %> <%= tutor[0]['lastName'] %></h4></p>
             <ul class="row list-unstyled">
             <% posts.forEach(post => {%>
               <li class="col-12 justify-content-between mt-5">
@@ -33,17 +33,15 @@
                       <h5 class="card-title"><%= post.time %></h5>
                       <p class="card-text"><%= post.title %></p>
                       <% if(post.claimed && post.requested){ %>
-                        <p class="card-text">Swap Requested</p>
-                        <a href="#" class="btn btn-primary">Review Swap Request</a>
+                        <p class="card-text">There is a Swap Request in process. Wait for the request to resolve to do any further requests</p>
                       <% }else if(post.claimed){ %>
-                        <p class="card-text">Assigned to : <%= post.claimedBy %></p>
-                        <a href="#" class="btn btn-primary">Unassign from Student</a>
+                        <p class="card-text">Assigned to : <%= post.claimedBy %></br>You can request a swap to the student who owns this schedule.</p>
+                        <a href="requests/requestSwap/<%= post._id%>" class="btn btn-primary">Request Swap</a>
                       <% }else if(post.requested){ %>
-                        <p class="card-text">Requested by : <%= post.requestedBy %></p>
-                        <a href="#" class="btn btn-primary">Review Request</a>
+                        <p class="card-text">Another student has requested this slot. Wait for the request to resolve to do any further requests</p>
                       <% }else if(post.available){ %>
-                        <p class="card-text">Available %></p>
-                        <a href="#" class="btn btn-primary">Assign to Student</a>
+                        <p class="card-text">Available %></br>Tell your Tutor that you want this schedule!</p>
+                        <a href="/requests/requestSlot/<%= post._id%>" class="btn btn-primary">Request Schedule</a>
                       <% } %>
                     </div>
                   </div>
@@ -51,7 +49,7 @@
             <% }) %>
             </ul>
             <div class="row justify-content-center mt-5">
-              <a class="btn btn-primary" href="/feed">Return to Feed</a>
+              <a class="btn btn-primary" href="/profile">Return to Your Profile</a>
             </div>  
           </div>   
       </div>
