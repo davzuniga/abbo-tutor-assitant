@@ -15,6 +15,19 @@ module.exports = {
       console.log(err);
     }
   },
+  getTutorCalendar: async (req, res) => {
+    try {
+      const tutor = await User.find( { calendarCode: req.query.calendarCode });
+      console.log(tutor.lastName)
+      const posts = await Post.find({ calendar: req.query.calendarCode });
+      const requests = await Request.find({post: req.params.id}).sort({ createdAt: "asc" }).lean();
+      const claimedSlots = await Post.find({claimedById: req.user.id}).sort({ createdAt: "asc" }).lean();
+      req.user.role === 'tutor' ? res.render("tutorProfile.ejs", { posts: posts, user: req.user, requests: requests }) : res.render("myTutorCalendar.ejs", { tutor: tutor, posts: posts, user: req.user, requests: requests, claimedSlots: claimedSlots, });
+      // res.render("profile.ejs", { posts: posts, user: req.user })
+    } catch (err) {
+      console.log(err);
+    }
+  },
   getFeed: async (req, res) => {
     try {
       const posts = await Post.find().sort({ createdAt: "desc" }).lean();
@@ -52,6 +65,7 @@ module.exports = {
         likes: 0,
         tutorName: `${req.user.name} ${req.user.lastName}`,
         user: req.user.id,
+        calendar: req.user.calendarCode,
                 // image: result.secure_url,
                 // cloudinaryId: result.public_id,
       });
@@ -71,6 +85,41 @@ module.exports = {
       );
       console.log("Likes +1");
       res.redirect(`/post/${req.params.id}`);
+    } catch (err) {
+      console.log(err);
+    }
+  },
+  requestSlot: async (req, res) => {
+    try {
+      await Post.findOneAndUpdate(
+        { _id: req.params.id },
+        {
+          requested: true,
+          requestedBy: `${req.user.name} ${req.user.lastName}`,
+          requestedById: req.user.id,
+        }
+      );
+      console.log("Requested Slot");
+      res.redirect(`/profile`);
+    } catch (err) {
+      console.log(err);
+    }
+  },
+  assignSlot: async (req, res) => {
+    try {
+      await Post.findOneAndUpdate(
+        { _id: req.params.id },
+        {
+          claimed: true,
+          claimedBy: requestedBy,
+          claimedById: requestedById,
+          requested: false,
+          requestedBy: "",
+          requestedById: "",
+        }
+      );
+      console.log("Requested Slot");
+      res.redirect(`/profile`);
     } catch (err) {
       console.log(err);
     }

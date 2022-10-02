@@ -10,29 +10,41 @@
             </div>
             <div class="mt-5 w-75">
                 <h2>Find a Calendar</h2>
-                <form action="/tutorCalendar" method="GET">
+                <form action="/tutorCalendar" enctype="multipart/form-data" method="GET">
                   <div class="mb-3">
                       <label for="calendarCode" class="form-label">Calendar Code</label>
                       <input type="text" class="form-control" id="calendarCode" name="calendarCode">
                       <div id="titleHelp" class="form-text">Your Tutor must provide you with a Calendar Code to view his available times.</div>
                   </div>
-                  <button type="submit" class="btn btn-primary">Submit</button>
+                  <button type="submit" class="btn btn-primary" value="Upload">Submit</button>
                 </form>
               </div>
         </div>
         <div class="col-6">
-            <h2>Your Schedule</h2>
+            <p><h4>Tutor name:  <%= tutor.lastName %> </h4></p>
             <ul class="row list-unstyled">
-            <% claimedSlots.forEach(slot => {%>
+            <% posts.forEach(post => {%>
               <li class="col-12 justify-content-between mt-5">
                 <div class="card">
                     <div class="card-header">
-                        <%= slot.dayOfTheWeek[0].toUpperCase() + slot.dayOfTheWeek.slice(1).toLowerCase() %>
+                        <%= post.dayOfTheWeek[0].toUpperCase() + post.dayOfTheWeek.slice(1).toLowerCase() %>
                     </div>
                     <div class="card-body">
-                      <h5 class="card-title"><%= slot.time %></h5>
-                      <p class="card-text"><%= slot.title %></p>
-                      <p class="card-text"><strong>Your Tutor: </strong><%= slot.tutorName %></p>
+                      <h5 class="card-title"><%= post.time %></h5>
+                      <p class="card-text"><%= post.title %></p>
+                      <% if(post.claimed && post.requested){ %>
+                        <p class="card-text">Swap Requested</p>
+                        <a href="#" class="btn btn-primary">Review Swap Request</a>
+                      <% }else if(post.claimed){ %>
+                        <p class="card-text">Assigned to : <%= post.claimedBy %></p>
+                        <a href="#" class="btn btn-primary">Unassign from Student</a>
+                      <% }else if(post.requested){ %>
+                        <p class="card-text">Requested by : <%= post.requestedBy %></p>
+                        <a href="#" class="btn btn-primary">Review Request</a>
+                      <% }else if(post.available){ %>
+                        <p class="card-text">Available %></p>
+                        <a href="#" class="btn btn-primary">Assign to Student</a>
+                      <% } %>
                     </div>
                   </div>
               </li>
