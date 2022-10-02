@@ -139,6 +139,8 @@
                       <p class="card-text"><%= post.title %></p>
                       <% if(post.claimed && post.requested){ %>
                         <p class="card-text">Swap Requested</p>
+                        <p class="card-text">Assigned to : <%= post.claimedBy %></p>
+                        <p class="card-text">Swap Requested by : <%= post.requestedBy %></p>
                         <a href="/requests/reviewSwap/<%= post._id%>" class="btn btn-primary">Review Swap Request</a>
                       <% }else if(post.claimed){ %>
                         <p class="card-text">Assigned to : <%= post.claimedBy %></p>

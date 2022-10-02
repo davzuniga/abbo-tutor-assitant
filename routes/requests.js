@@ -8,7 +8,7 @@ const { ensureAuth, ensureGuest } = require("../middleware/auth");
 
 router.post("/createRequest/:id", requestsController.createRequest);
 
-// router.put("/likePost/:id", postsController.likePost);
+router.put("requestSlot/:id", requestsController.requestSlot);
 
 // router.delete("/deletePost/:id", postsController.deletePost);
 

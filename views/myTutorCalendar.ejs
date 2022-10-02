@@ -41,7 +41,9 @@
                         <p class="card-text">Another student has requested this slot. Wait for the request to resolve to do any further requests</p>
                       <% }else if(post.available){ %>
                         <p class="card-text">Available %></br>Tell your Tutor that you want this schedule!</p>
-                        <a href="/requests/requestSlot/<%= post._id%>" class="btn btn-primary">Request Schedule</a>
+                        <form action="/requests/requestSlot/<%= post._id%>?_method=PUT" class="" method="POST">
+                            <button class="btn btn-primary" type="submit">Request Schedule</button>
+                        </form>
                       <% } %>
                     </div>
                   </div>

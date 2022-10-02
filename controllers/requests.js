@@ -32,6 +32,22 @@ module.exports = {
       console.log(err);
     }
   },
+  requestSlot: async (req, res) => {
+    try {
+      await Post.findOneAndUpdate(
+        { _id: req.params.id },
+        {
+          requested: true,
+          requestedBy: `${req.user.name} ${req.user.lastName}`,
+          requestedById: req.user.id,
+        }
+      );
+      console.log("Requested Slot");
+      res.redirect(`/profile`);
+    } catch (err) {
+      console.log(err);
+    }
+  },
 //   likePost: async (req, res) => {
 //     try {
 //       await Post.findOneAndUpdate(
