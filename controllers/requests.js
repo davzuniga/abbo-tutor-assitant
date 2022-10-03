@@ -48,6 +48,48 @@ module.exports = {
       console.log(err);
     }
   },
+  acceptRequest: async (req, res) => {
+    try {
+      const post = await Post.findById(req.params.id);
+
+      await Post.findOneAndUpdate(
+        { _id: req.params.id },
+        {
+          available: false,
+          claimed: true,
+          claimedBy: post.requestedBy,
+          claimedById: post.requestedById,
+          requested: false,
+          requestedBy: '',
+          requestedById: '',
+        },
+      );
+      console.log("Slot was Assigned");
+      res.redirect(`/profile`);
+    } catch (err) {
+      console.log(err);
+    }
+  },
+  unassignSlot: async (req, res) => {
+    try {
+      await Post.findOneAndUpdate(
+        { _id: req.params.id },
+        {
+          available: true,
+          claimed: false,
+          claimedBy: '',
+          claimedById: '',
+          requested: false,
+          requestedBy: '',
+          requestedById: '',
+        },
+      );
+      console.log("Slot was Unassigned");
+      res.redirect(`/profile`);
+    } catch (err) {
+      console.log(err);
+    }
+  },
 //   likePost: async (req, res) => {
 //     try {
 //       await Post.findOneAndUpdate(

@@ -36,13 +36,15 @@
                         <p class="card-text">There is a Swap Request in process. Wait for the request to resolve to do any further requests</p>
                       <% }else if(post.claimed){ %>
                         <p class="card-text">Assigned to : <%= post.claimedBy %></br>You can request a swap to the student who owns this schedule.</p>
-                        <a href="requests/requestSwap/<%= post._id%>" class="btn btn-primary">Request Swap</a>
+                        <form method="POST" action="requests/requestSlot/<%= post._id%>?_method=PUT" class="">
+                            <button class="btn btn-primary" type="submit" value="Upload">Request Swap</button>
+                        </form>
                       <% }else if(post.requested){ %>
-                        <p class="card-text">Another student has requested this slot. Wait for the request to resolve to do any further requests</p>
+                        <p class="card-text">A student has requested this slot. Wait for the request to resolve to do any further requests</p>
                       <% }else if(post.available){ %>
                         <p class="card-text">Available %></br>Tell your Tutor that you want this schedule!</p>
-                        <form action="/requests/requestSlot/<%= post._id%>?_method=PUT" class="" method="POST">
-                            <button class="btn btn-primary" type="submit">Request Schedule</button>
+                        <form method="POST" action="requests/requestSlot/<%= post._id%>?_method=PUT" class="">
+                            <button class="btn btn-primary" type="submit" value="Upload">Request Schedule</button>
                         </form>
                       <% } %>
                     </div>

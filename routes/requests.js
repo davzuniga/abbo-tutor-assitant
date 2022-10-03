@@ -8,7 +8,11 @@ const { ensureAuth, ensureGuest } = require("../middleware/auth");
 
 router.post("/createRequest/:id", requestsController.createRequest);
 
-router.put("requestSlot/:id", requestsController.requestSlot);
+router.put("/requestSlot/:id", requestsController.requestSlot);
+
+router.put("/acceptRequest/:id", requestsController.acceptRequest);
+
+router.put("/unassignSlot/:id", requestsController.unassignSlot);
 
 // router.delete("/deletePost/:id", postsController.deletePost);
 

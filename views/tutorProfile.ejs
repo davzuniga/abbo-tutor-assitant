@@ -64,7 +64,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="dayOfTheWeek" class="form-label">Choose the day of the week</label>
-                    <select class="form-select" aria-label="dayOfTheWeek" name="dayOfTheWeek">
+                    <select class="form-select w-50" aria-label="dayOfTheWeek" name="dayOfTheWeek">
                       <option value="monday">Monday</option>
                       <option value="tuesday">Tuesday</option>
                       <option value="wednesday">Wednesday</option>
@@ -117,7 +117,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="recurrent" class="form-label">Is this schedule repeating every week?</label>
-                    <select class="form-select" aria-label="recurrent" name="recurrent">
+                    <select class="form-select w-25" aria-label="recurrent" name="recurrent">
                       <option value="true">Yes</option>
                       <option value="false">No</option>
                     </select>
@@ -141,16 +141,25 @@
                         <p class="card-text">Swap Requested</p>
                         <p class="card-text">Assigned to : <%= post.claimedBy %></p>
                         <p class="card-text">Swap Requested by : <%= post.requestedBy %></p>
-                        <a href="/requests/reviewSwap/<%= post._id%>" class="btn btn-primary">Review Swap Request</a>
+                        <form method="POST" action="requests/acceptRequest/<%= post._id%>?_method=PUT" class="">
+                          <button class="btn btn-primary" type="submit" value="Upload">Accept Swap</button>
+                        </form>
                       <% }else if(post.claimed){ %>
                         <p class="card-text">Assigned to : <%= post.claimedBy %></p>
-                        <a href="/requests/unassignSlot/<%= post._id%>" class="btn btn-primary">Unassign from Student</a>
+                        <form method="POST" action="requests/unassignSlot/<%= post._id%>?_method=PUT" class="">
+                          <button class="btn btn-primary" type="submit" value="Upload">Unassign from Student</button>
+                        </form>
                       <% }else if(post.requested){ %>
                         <p class="card-text">Requested by : <%= post.requestedBy %></p>
-                        <a href="/requests/reviewRequest/<%= post._id%>" class="btn btn-primary">Review Request</a>
+                        <form method="POST" action="requests/acceptRequest/<%= post._id%>?_method=PUT" class="">
+                          <button class="btn btn-primary" type="submit" value="Upload">Accept Request</button>
+                        </form>
+                        <p class="card-tex">By accepting the request, this Slot will be assigned to the Student who requested it.</p>
                       <% }else if(post.available){ %>
-                        <p class="card-text">Available %></p>
-                        <a href="/requests/assignSlot/<%= post._id%>" class="btn btn-primary">Assign to Student</a>
+                        <p class="card-text">Available %><br> Assign Slot to Student feature coming up soon.</p>
+                        <form method="POST" action="#requests/assignSlot/<%= post._id%>?_method=PUT" class="">
+                          <button class="btn btn-primary" disabled type="submit" value="Upload">Assign to Student</button>
+                        </form>
                       <% } %>
                     </div>
                   </div>
